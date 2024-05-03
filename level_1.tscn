@@ -1,0 +1,67 @@
+[gd_scene load_steps=7 format=3 uid="uid://k1lk40opwnuy"]
+
+[ext_resource type="Script" path="res://level_1.gd" id="1_dlycd"]
+[ext_resource type="Texture2D" uid="uid://qp652vm230ra" path="res://purple.png" id="1_i6n3c"]
+[ext_resource type="PackedScene" uid="uid://cct58ormkr3ja" path="res://player.tscn" id="2_3csdb"]
+[ext_resource type="PackedScene" uid="uid://dy4cmmencs5e0" path="res://maze.tscn" id="4_tcb7u"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_nnnsj"]
+font_size = 25
+
+[sub_resource type="LabelSettings" id="LabelSettings_efjww"]
+font_size = 13
+
+[node name="Level 1" type="Node2D"]
+position = Vector2(3, 0)
+script = ExtResource("1_dlycd")
+
+[node name="Graphics" type="Node" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Graphics"]
+layer = -10
+
+[node name="Background" type="TextureRect" parent="Graphics/CanvasLayer"]
+z_index = -100
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_i6n3c")
+stretch_mode = 1
+
+[node name="StartLabel" type="Label" parent="Graphics"]
+offset_left = 52.0
+offset_top = 152.0
+offset_right = 127.0
+offset_bottom = 187.0
+text = "START"
+label_settings = SubResource("LabelSettings_nnnsj")
+
+[node name="EndLabel" type="Label" parent="Graphics"]
+offset_left = 479.0
+offset_top = -94.0
+offset_right = 561.0
+offset_bottom = -39.0
+text = "END"
+label_settings = SubResource("LabelSettings_nnnsj")
+
+[node name="Tutorial" type="Label" parent="Graphics"]
+offset_left = 157.0
+offset_top = 75.0
+offset_right = 407.0
+offset_bottom = 156.0
+text = "RULES:
+- MOVE USING WASD OR ARROWS
+- TRY TO STAY ON TRACK
+- BE CAREFULL WITH YOUR SPEED"
+label_settings = SubResource("LabelSettings_efjww")
+
+[node name="Player" parent="." instance=ExtResource("2_3csdb")]
+position = Vector2(85, 116)
+
+[node name="Maze" parent="." instance=ExtResource("4_tcb7u")]
+z_index = -50
+position = Vector2(88, 133)
+
+[connection signal="body_exited" from="Maze" to="." method="_on_maze_body_exited"]
